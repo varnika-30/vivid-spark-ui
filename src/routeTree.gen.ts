@@ -10,33 +10,215 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ClientRouteImport } from './routes/client'
+import { Route as DriverRouteImport } from './routes/driver'
+import { Route as ManagerRouteImport } from './routes/manager'
+import { Route as DriverIndexRouteImport } from './routes/driver.index'
+import { Route as DriverDeliveriesRouteImport } from './routes/driver.deliveries'
+import { Route as DriverPerformanceRouteImport } from './routes/driver.performance'
+import { Route as DriverScheduleRouteImport } from './routes/driver.schedule'
+import { Route as ManagerIndexRouteImport } from './routes/manager.index'
+import { Route as ManagerDeliveriesRouteImport } from './routes/manager.deliveries'
+import { Route as ManagerDriversRouteImport } from './routes/manager.drivers'
+import { Route as ManagerRequestsRouteImport } from './routes/manager.requests'
+import { Route as ManagerTripsRouteImport } from './routes/manager.trips'
+import { Route as WelcomeRoleRouteImport } from './routes/welcome.$role'
+import { Route as ManagerDriversIndexRouteImport } from './routes/manager.drivers.index'
+import { Route as ManagerDriversDriverIdRouteImport } from './routes/manager.drivers.$driverId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ClientRoute = ClientRouteImport.update({
+  id: '/client',
+  path: '/client',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DriverRoute = DriverRouteImport.update({
+  id: '/driver',
+  path: '/driver',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ManagerRoute = ManagerRouteImport.update({
+  id: '/manager',
+  path: '/manager',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DriverIndexRoute = DriverIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DriverRoute,
+} as any)
+const DriverDeliveriesRoute = DriverDeliveriesRouteImport.update({
+  id: '/deliveries',
+  path: '/deliveries',
+  getParentRoute: () => DriverRoute,
+} as any)
+const DriverPerformanceRoute = DriverPerformanceRouteImport.update({
+  id: '/performance',
+  path: '/performance',
+  getParentRoute: () => DriverRoute,
+} as any)
+const DriverScheduleRoute = DriverScheduleRouteImport.update({
+  id: '/schedule',
+  path: '/schedule',
+  getParentRoute: () => DriverRoute,
+} as any)
+const ManagerIndexRoute = ManagerIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ManagerRoute,
+} as any)
+const ManagerDeliveriesRoute = ManagerDeliveriesRouteImport.update({
+  id: '/deliveries',
+  path: '/deliveries',
+  getParentRoute: () => ManagerRoute,
+} as any)
+const ManagerDriversRoute = ManagerDriversRouteImport.update({
+  id: '/drivers',
+  path: '/drivers',
+  getParentRoute: () => ManagerRoute,
+} as any)
+const ManagerRequestsRoute = ManagerRequestsRouteImport.update({
+  id: '/requests',
+  path: '/requests',
+  getParentRoute: () => ManagerRoute,
+} as any)
+const ManagerTripsRoute = ManagerTripsRouteImport.update({
+  id: '/trips',
+  path: '/trips',
+  getParentRoute: () => ManagerRoute,
+} as any)
+const WelcomeRoleRoute = WelcomeRoleRouteImport.update({
+  id: '/welcome/$role',
+  path: '/welcome/$role',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ManagerDriversIndexRoute = ManagerDriversIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ManagerDriversRoute,
+} as any)
+const ManagerDriversDriverIdRoute = ManagerDriversDriverIdRouteImport.update({
+  id: '/$driverId',
+  path: '/$driverId',
+  getParentRoute: () => ManagerDriversRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/client': typeof ClientRoute
+  '/driver': typeof DriverRouteWithChildren
+  '/manager': typeof ManagerRouteWithChildren
+  '/driver/deliveries': typeof DriverDeliveriesRoute
+  '/driver/performance': typeof DriverPerformanceRoute
+  '/driver/schedule': typeof DriverScheduleRoute
+  '/manager/deliveries': typeof ManagerDeliveriesRoute
+  '/manager/drivers': typeof ManagerDriversRouteWithChildren
+  '/manager/requests': typeof ManagerRequestsRoute
+  '/manager/trips': typeof ManagerTripsRoute
+  '/welcome/$role': typeof WelcomeRoleRoute
+  '/driver/': typeof DriverIndexRoute
+  '/manager/': typeof ManagerIndexRoute
+  '/manager/drivers/$driverId': typeof ManagerDriversDriverIdRoute
+  '/manager/drivers/': typeof ManagerDriversIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/client': typeof ClientRoute
+  '/driver/deliveries': typeof DriverDeliveriesRoute
+  '/driver/performance': typeof DriverPerformanceRoute
+  '/driver/schedule': typeof DriverScheduleRoute
+  '/manager/deliveries': typeof ManagerDeliveriesRoute
+  '/manager/requests': typeof ManagerRequestsRoute
+  '/manager/trips': typeof ManagerTripsRoute
+  '/welcome/$role': typeof WelcomeRoleRoute
+  '/driver': typeof DriverIndexRoute
+  '/manager': typeof ManagerIndexRoute
+  '/manager/drivers/$driverId': typeof ManagerDriversDriverIdRoute
+  '/manager/drivers': typeof ManagerDriversIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/client': typeof ClientRoute
+  '/driver': typeof DriverRouteWithChildren
+  '/manager': typeof ManagerRouteWithChildren
+  '/driver/deliveries': typeof DriverDeliveriesRoute
+  '/driver/performance': typeof DriverPerformanceRoute
+  '/driver/schedule': typeof DriverScheduleRoute
+  '/manager/deliveries': typeof ManagerDeliveriesRoute
+  '/manager/drivers': typeof ManagerDriversRouteWithChildren
+  '/manager/requests': typeof ManagerRequestsRoute
+  '/manager/trips': typeof ManagerTripsRoute
+  '/welcome/$role': typeof WelcomeRoleRoute
+  '/driver/': typeof DriverIndexRoute
+  '/manager/': typeof ManagerIndexRoute
+  '/manager/drivers/$driverId': typeof ManagerDriversDriverIdRoute
+  '/manager/drivers/': typeof ManagerDriversIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/client'
+    | '/driver'
+    | '/manager'
+    | '/driver/deliveries'
+    | '/driver/performance'
+    | '/driver/schedule'
+    | '/manager/deliveries'
+    | '/manager/drivers'
+    | '/manager/requests'
+    | '/manager/trips'
+    | '/welcome/$role'
+    | '/driver/'
+    | '/manager/'
+    | '/manager/drivers/$driverId'
+    | '/manager/drivers/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/client'
+    | '/driver/deliveries'
+    | '/driver/performance'
+    | '/driver/schedule'
+    | '/manager/deliveries'
+    | '/manager/requests'
+    | '/manager/trips'
+    | '/welcome/$role'
+    | '/driver'
+    | '/manager'
+    | '/manager/drivers/$driverId'
+    | '/manager/drivers'
+  id:
+    | '__root__'
+    | '/'
+    | '/client'
+    | '/driver'
+    | '/manager'
+    | '/driver/deliveries'
+    | '/driver/performance'
+    | '/driver/schedule'
+    | '/manager/deliveries'
+    | '/manager/drivers'
+    | '/manager/requests'
+    | '/manager/trips'
+    | '/welcome/$role'
+    | '/driver/'
+    | '/manager/'
+    | '/manager/drivers/$driverId'
+    | '/manager/drivers/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ClientRoute: typeof ClientRoute
+  DriverRoute: typeof DriverRouteWithChildren
+  ManagerRoute: typeof ManagerRouteWithChildren
+  WelcomeRoleRoute: typeof WelcomeRoleRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,22 +230,171 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/client': {
+      id: '/client'
+      path: '/client'
+      fullPath: '/client'
+      preLoaderRoute: typeof ClientRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/driver': {
+      id: '/driver'
+      path: '/driver'
+      fullPath: '/driver'
+      preLoaderRoute: typeof DriverRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/manager': {
+      id: '/manager'
+      path: '/manager'
+      fullPath: '/manager'
+      preLoaderRoute: typeof ManagerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/driver/': {
+      id: '/driver/'
+      path: '/'
+      fullPath: '/driver/'
+      preLoaderRoute: typeof DriverIndexRouteImport
+      parentRoute: typeof DriverRoute
+    }
+    '/driver/deliveries': {
+      id: '/driver/deliveries'
+      path: '/deliveries'
+      fullPath: '/driver/deliveries'
+      preLoaderRoute: typeof DriverDeliveriesRouteImport
+      parentRoute: typeof DriverRoute
+    }
+    '/driver/performance': {
+      id: '/driver/performance'
+      path: '/performance'
+      fullPath: '/driver/performance'
+      preLoaderRoute: typeof DriverPerformanceRouteImport
+      parentRoute: typeof DriverRoute
+    }
+    '/driver/schedule': {
+      id: '/driver/schedule'
+      path: '/schedule'
+      fullPath: '/driver/schedule'
+      preLoaderRoute: typeof DriverScheduleRouteImport
+      parentRoute: typeof DriverRoute
+    }
+    '/manager/': {
+      id: '/manager/'
+      path: '/'
+      fullPath: '/manager/'
+      preLoaderRoute: typeof ManagerIndexRouteImport
+      parentRoute: typeof ManagerRoute
+    }
+    '/manager/deliveries': {
+      id: '/manager/deliveries'
+      path: '/deliveries'
+      fullPath: '/manager/deliveries'
+      preLoaderRoute: typeof ManagerDeliveriesRouteImport
+      parentRoute: typeof ManagerRoute
+    }
+    '/manager/drivers': {
+      id: '/manager/drivers'
+      path: '/drivers'
+      fullPath: '/manager/drivers'
+      preLoaderRoute: typeof ManagerDriversRouteImport
+      parentRoute: typeof ManagerRoute
+    }
+    '/manager/requests': {
+      id: '/manager/requests'
+      path: '/requests'
+      fullPath: '/manager/requests'
+      preLoaderRoute: typeof ManagerRequestsRouteImport
+      parentRoute: typeof ManagerRoute
+    }
+    '/manager/trips': {
+      id: '/manager/trips'
+      path: '/trips'
+      fullPath: '/manager/trips'
+      preLoaderRoute: typeof ManagerTripsRouteImport
+      parentRoute: typeof ManagerRoute
+    }
+    '/welcome/$role': {
+      id: '/welcome/$role'
+      path: '/welcome/$role'
+      fullPath: '/welcome/$role'
+      preLoaderRoute: typeof WelcomeRoleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/manager/drivers/': {
+      id: '/manager/drivers/'
+      path: '/'
+      fullPath: '/manager/drivers/'
+      preLoaderRoute: typeof ManagerDriversIndexRouteImport
+      parentRoute: typeof ManagerDriversRoute
+    }
+    '/manager/drivers/$driverId': {
+      id: '/manager/drivers/$driverId'
+      path: '/$driverId'
+      fullPath: '/manager/drivers/$driverId'
+      preLoaderRoute: typeof ManagerDriversDriverIdRouteImport
+      parentRoute: typeof ManagerDriversRoute
+    }
   }
 }
 
+interface DriverRouteChildren {
+  DriverDeliveriesRoute: typeof DriverDeliveriesRoute
+  DriverPerformanceRoute: typeof DriverPerformanceRoute
+  DriverScheduleRoute: typeof DriverScheduleRoute
+  DriverIndexRoute: typeof DriverIndexRoute
+}
+
+const DriverRouteChildren: DriverRouteChildren = {
+  DriverDeliveriesRoute: DriverDeliveriesRoute,
+  DriverPerformanceRoute: DriverPerformanceRoute,
+  DriverScheduleRoute: DriverScheduleRoute,
+  DriverIndexRoute: DriverIndexRoute,
+}
+
+const DriverRouteWithChildren =
+  DriverRoute._addFileChildren(DriverRouteChildren)
+
+interface ManagerDriversRouteChildren {
+  ManagerDriversDriverIdRoute: typeof ManagerDriversDriverIdRoute
+  ManagerDriversIndexRoute: typeof ManagerDriversIndexRoute
+}
+
+const ManagerDriversRouteChildren: ManagerDriversRouteChildren = {
+  ManagerDriversDriverIdRoute: ManagerDriversDriverIdRoute,
+  ManagerDriversIndexRoute: ManagerDriversIndexRoute,
+}
+
+const ManagerDriversRouteWithChildren = ManagerDriversRoute._addFileChildren(
+  ManagerDriversRouteChildren,
+)
+
+interface ManagerRouteChildren {
+  ManagerDeliveriesRoute: typeof ManagerDeliveriesRoute
+  ManagerDriversRoute: typeof ManagerDriversRouteWithChildren
+  ManagerRequestsRoute: typeof ManagerRequestsRoute
+  ManagerTripsRoute: typeof ManagerTripsRoute
+  ManagerIndexRoute: typeof ManagerIndexRoute
+}
+
+const ManagerRouteChildren: ManagerRouteChildren = {
+  ManagerDeliveriesRoute: ManagerDeliveriesRoute,
+  ManagerDriversRoute: ManagerDriversRouteWithChildren,
+  ManagerRequestsRoute: ManagerRequestsRoute,
+  ManagerTripsRoute: ManagerTripsRoute,
+  ManagerIndexRoute: ManagerIndexRoute,
+}
+
+const ManagerRouteWithChildren =
+  ManagerRoute._addFileChildren(ManagerRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ClientRoute: ClientRoute,
+  DriverRoute: DriverRouteWithChildren,
+  ManagerRoute: ManagerRouteWithChildren,
+  WelcomeRoleRoute: WelcomeRoleRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
