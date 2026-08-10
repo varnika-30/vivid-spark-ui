@@ -1,0 +1,161 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { motion } from "motion/react";
+import { PackagePlus, Send } from "lucide-react";
+import { Page } from "@/components/fx/page";
+import { GlassPanel } from "@/components/fx/glass-panel";
+import { MagneticButton } from "@/components/fx/magnetic-button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { toast } from "sonner";
+
+export const Route = createFileRoute("/client/create")({
+  head: () => ({
+    meta: [
+      { title: "Create Delivery — Fleetline" },
+      { name: "description", content: "Book a new delivery: pickup, drop, package details and schedule." },
+      { property: "og:title", content: "Create Delivery — Fleetline" },
+      { property: "og:description", content: "Book a delivery in under a minute." },
+    ],
+  }),
+  component: CreateDelivery,
+});
+
+const addressFields = ["Address line 1", "Address line 2", "City", "State", "Zip code", "Country"];
+
+function AddressBlock({ title }: { title: string }) {
+  return (
+    <GlassPanel title={title} hoverable={false}>
+      <div className="grid gap-3 sm:grid-cols-2">
+        {addressFields.map((f, i) => (
+          <motion.div
+            key={f}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.04 }}
+            className="space-y-1.5"
+          >
+            <Label className="text-xs text-muted-foreground">{f}</Label>
+            <Input placeholder={f} className="bg-surface/40" />
+          </motion.div>
+        ))}
+      </div>
+    </GlassPanel>
+  );
+}
+
+function CreateDelivery() {
+  return (
+    <Page
+      title="Create New Delivery"
+      description="Tell us what's moving and where — we'll match the right driver automatically."
+      actions={
+        <MagneticButton
+          variant="primary"
+          icon={<Send className="size-4" />}
+          onClick={() => toast.success("Delivery request submitted", { description: "We'll assign a driver shortly." })}
+        >
+          Submit request
+        </MagneticButton>
+      }
+    >
+      <div className="grid gap-4 lg:grid-cols-2">
+        <AddressBlock title="Pickup at" />
+        <AddressBlock title="Drop at" />
+      </div>
+
+      <div className="mt-4 grid gap-4 lg:grid-cols-3">
+        <GlassPanel className="lg:col-span-2" title="Package details" hoverable={false}>
+          <div className="grid gap-3 sm:grid-cols-3">
+            <div className="space-y-1.5">
+              <Label className="text-xs text-muted-foreground">Weight</Label>
+              <Input placeholder="e.g. 3.4 kg" className="bg-surface/40" />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-xs text-muted-foreground">Size</Label>
+              <Input placeholder="e.g. 40 × 30 × 20 cm" className="bg-surface/40" />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-xs text-muted-foreground">Type of package</Label>
+              <Select>
+                <SelectTrigger className="bg-surface/40">
+                  <SelectValue placeholder="Select type" />
+                </SelectTrigger>
+                <SelectContent>
+                  {["Document", "Clothes", "Food", "Furniture", "Electronics", "Medicine", "Supplies", "Other"].map((t) => (
+                    <SelectItem key={t} value={t.toLowerCase()}>
+                      {t}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-xs text-muted-foreground">Handle with care</Label>
+              <Select>
+                <SelectTrigger className="bg-surface/40">
+                  <SelectValue placeholder="Yes / No" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="yes">Yes</SelectItem>
+                  <SelectItem value="no">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-xs text-muted-foreground">Priority</Label>
+              <Select>
+                <SelectTrigger className="bg-surface/40">
+                  <SelectValue placeholder="Normal" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="high">High</SelectItem>
+                  <SelectItem value="normal">Normal</SelectItem>
+                  <SelectItem value="low">Low</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-xs text-muted-foreground">Preferred date</Label>
+              <Input type="date" className="bg-surface/40" />
+            </div>
+          </div>
+          <div className="mt-3 space-y-1.5">
+            <Label className="text-xs text-muted-foreground">Any special instructions</Label>
+            <Textarea rows={3} placeholder="Fragile items, gate codes, contact preferences…" className="bg-surface/40" />
+          </div>
+        </GlassPanel>
+
+        <GlassPanel title="Summary" subtitle="Estimated on submission">
+          <div className="space-y-3 text-sm">
+            {[
+              { label: "Estimated cost", value: "₹2,450" },
+              { label: "Estimated transit", value: "4h 10m" },
+              { label: "Driver match", value: "Auto (AI)" },
+            ].map((row) => (
+              <div key={row.label} className="flex items-center justify-between rounded-xl border border-border p-3">
+                <span className="text-muted-foreground">{row.label}</span>
+                <span className="font-medium">{row.value}</span>
+              </div>
+            ))}
+          </div>
+          <motion.div
+            animate={{ y: [0, -6, 0] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+            className="mt-4 flex items-center gap-2 rounded-xl bg-primary/10 p-3 text-xs text-muted-foreground"
+          >
+            <PackagePlus className="size-4 text-primary" />
+            Requests submitted before 4 PM are usually assigned the same day.
+          </motion.div>
+        </GlassPanel>
+      </div>
+    </Page>
+  );
+}
