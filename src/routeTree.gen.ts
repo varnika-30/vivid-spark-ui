@@ -13,6 +13,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ClientRouteImport } from './routes/client'
 import { Route as DriverRouteImport } from './routes/driver'
 import { Route as ManagerRouteImport } from './routes/manager'
+import { Route as ClientIndexRouteImport } from './routes/client.index'
+import { Route as ClientCreateRouteImport } from './routes/client.create'
+import { Route as ClientNotificationsRouteImport } from './routes/client.notifications'
 import { Route as DriverIndexRouteImport } from './routes/driver.index'
 import { Route as DriverDeliveriesRouteImport } from './routes/driver.deliveries'
 import { Route as DriverPerformanceRouteImport } from './routes/driver.performance'
@@ -45,6 +48,21 @@ const ManagerRoute = ManagerRouteImport.update({
   id: '/manager',
   path: '/manager',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ClientIndexRoute = ClientIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ClientRoute,
+} as any)
+const ClientCreateRoute = ClientCreateRouteImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => ClientRoute,
+} as any)
+const ClientNotificationsRoute = ClientNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => ClientRoute,
 } as any)
 const DriverIndexRoute = DriverIndexRouteImport.update({
   id: '/',
@@ -109,9 +127,11 @@ const ManagerDriversDriverIdRoute = ManagerDriversDriverIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/client': typeof ClientRoute
+  '/client': typeof ClientRouteWithChildren
   '/driver': typeof DriverRouteWithChildren
   '/manager': typeof ManagerRouteWithChildren
+  '/client/create': typeof ClientCreateRoute
+  '/client/notifications': typeof ClientNotificationsRoute
   '/driver/deliveries': typeof DriverDeliveriesRoute
   '/driver/performance': typeof DriverPerformanceRoute
   '/driver/schedule': typeof DriverScheduleRoute
@@ -120,6 +140,7 @@ export interface FileRoutesByFullPath {
   '/manager/requests': typeof ManagerRequestsRoute
   '/manager/trips': typeof ManagerTripsRoute
   '/welcome/$role': typeof WelcomeRoleRoute
+  '/client/': typeof ClientIndexRoute
   '/driver/': typeof DriverIndexRoute
   '/manager/': typeof ManagerIndexRoute
   '/manager/drivers/$driverId': typeof ManagerDriversDriverIdRoute
@@ -127,7 +148,8 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/client': typeof ClientRoute
+  '/client/create': typeof ClientCreateRoute
+  '/client/notifications': typeof ClientNotificationsRoute
   '/driver/deliveries': typeof DriverDeliveriesRoute
   '/driver/performance': typeof DriverPerformanceRoute
   '/driver/schedule': typeof DriverScheduleRoute
@@ -135,6 +157,7 @@ export interface FileRoutesByTo {
   '/manager/requests': typeof ManagerRequestsRoute
   '/manager/trips': typeof ManagerTripsRoute
   '/welcome/$role': typeof WelcomeRoleRoute
+  '/client': typeof ClientIndexRoute
   '/driver': typeof DriverIndexRoute
   '/manager': typeof ManagerIndexRoute
   '/manager/drivers/$driverId': typeof ManagerDriversDriverIdRoute
@@ -143,9 +166,11 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/client': typeof ClientRoute
+  '/client': typeof ClientRouteWithChildren
   '/driver': typeof DriverRouteWithChildren
   '/manager': typeof ManagerRouteWithChildren
+  '/client/create': typeof ClientCreateRoute
+  '/client/notifications': typeof ClientNotificationsRoute
   '/driver/deliveries': typeof DriverDeliveriesRoute
   '/driver/performance': typeof DriverPerformanceRoute
   '/driver/schedule': typeof DriverScheduleRoute
@@ -154,6 +179,7 @@ export interface FileRoutesById {
   '/manager/requests': typeof ManagerRequestsRoute
   '/manager/trips': typeof ManagerTripsRoute
   '/welcome/$role': typeof WelcomeRoleRoute
+  '/client/': typeof ClientIndexRoute
   '/driver/': typeof DriverIndexRoute
   '/manager/': typeof ManagerIndexRoute
   '/manager/drivers/$driverId': typeof ManagerDriversDriverIdRoute
@@ -166,6 +192,8 @@ export interface FileRouteTypes {
     | '/client'
     | '/driver'
     | '/manager'
+    | '/client/create'
+    | '/client/notifications'
     | '/driver/deliveries'
     | '/driver/performance'
     | '/driver/schedule'
@@ -174,6 +202,7 @@ export interface FileRouteTypes {
     | '/manager/requests'
     | '/manager/trips'
     | '/welcome/$role'
+    | '/client/'
     | '/driver/'
     | '/manager/'
     | '/manager/drivers/$driverId'
@@ -181,7 +210,8 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/client'
+    | '/client/create'
+    | '/client/notifications'
     | '/driver/deliveries'
     | '/driver/performance'
     | '/driver/schedule'
@@ -189,6 +219,7 @@ export interface FileRouteTypes {
     | '/manager/requests'
     | '/manager/trips'
     | '/welcome/$role'
+    | '/client'
     | '/driver'
     | '/manager'
     | '/manager/drivers/$driverId'
@@ -199,6 +230,8 @@ export interface FileRouteTypes {
     | '/client'
     | '/driver'
     | '/manager'
+    | '/client/create'
+    | '/client/notifications'
     | '/driver/deliveries'
     | '/driver/performance'
     | '/driver/schedule'
@@ -207,6 +240,7 @@ export interface FileRouteTypes {
     | '/manager/requests'
     | '/manager/trips'
     | '/welcome/$role'
+    | '/client/'
     | '/driver/'
     | '/manager/'
     | '/manager/drivers/$driverId'
@@ -215,7 +249,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ClientRoute: typeof ClientRoute
+  ClientRoute: typeof ClientRouteWithChildren
   DriverRoute: typeof DriverRouteWithChildren
   ManagerRoute: typeof ManagerRouteWithChildren
   WelcomeRoleRoute: typeof WelcomeRoleRoute
@@ -250,6 +284,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/manager'
       preLoaderRoute: typeof ManagerRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/client/': {
+      id: '/client/'
+      path: '/'
+      fullPath: '/client/'
+      preLoaderRoute: typeof ClientIndexRouteImport
+      parentRoute: typeof ClientRoute
+    }
+    '/client/create': {
+      id: '/client/create'
+      path: '/create'
+      fullPath: '/client/create'
+      preLoaderRoute: typeof ClientCreateRouteImport
+      parentRoute: typeof ClientRoute
+    }
+    '/client/notifications': {
+      id: '/client/notifications'
+      path: '/notifications'
+      fullPath: '/client/notifications'
+      preLoaderRoute: typeof ClientNotificationsRouteImport
+      parentRoute: typeof ClientRoute
     }
     '/driver/': {
       id: '/driver/'
@@ -338,6 +393,21 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface ClientRouteChildren {
+  ClientCreateRoute: typeof ClientCreateRoute
+  ClientNotificationsRoute: typeof ClientNotificationsRoute
+  ClientIndexRoute: typeof ClientIndexRoute
+}
+
+const ClientRouteChildren: ClientRouteChildren = {
+  ClientCreateRoute: ClientCreateRoute,
+  ClientNotificationsRoute: ClientNotificationsRoute,
+  ClientIndexRoute: ClientIndexRoute,
+}
+
+const ClientRouteWithChildren =
+  ClientRoute._addFileChildren(ClientRouteChildren)
+
 interface DriverRouteChildren {
   DriverDeliveriesRoute: typeof DriverDeliveriesRoute
   DriverPerformanceRoute: typeof DriverPerformanceRoute
@@ -390,7 +460,7 @@ const ManagerRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ClientRoute: ClientRoute,
+  ClientRoute: ClientRouteWithChildren,
   DriverRoute: DriverRouteWithChildren,
   ManagerRoute: ManagerRouteWithChildren,
   WelcomeRoleRoute: WelcomeRoleRoute,
@@ -398,3 +468,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
