@@ -208,14 +208,14 @@ function FloatingLauncher({
 }) {
   return (
     <motion.div
-      animate={{ y: [0, -9, 0] }}
-      transition={{ duration: 5.5 + index * 0.7, repeat: Infinity, ease: "easeInOut" }}
+      animate={{ y: [0, -3, 0] }}
+      transition={{ duration: 5 + index * 0.5, repeat: Infinity, ease: "easeInOut" }}
     >
-      <TiltCard intensity={9} className="rounded-2xl">
+      <TiltCard intensity={4} className="rounded-2xl">
         <MagneticButton
           onClick={onSelect}
           variant="glass"
-          strength={0.18}
+          tilt={0}
           className="group w-full flex-col items-start gap-4 rounded-2xl border-0 bg-transparent p-6 text-left shadow-none"
         >
           <span className="flex w-full items-center justify-between">
