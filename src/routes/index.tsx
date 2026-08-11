@@ -126,6 +126,7 @@ function LoginPage() {
           <MagneticButton
             variant="primary"
             className="mt-6 w-full"
+            float
             icon={<ArrowRight className="size-4" />}
             type="submit"
           >
