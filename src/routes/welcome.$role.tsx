@@ -124,21 +124,28 @@ function WelcomePage() {
         )}
       </AnimatePresence>
 
+      {/* Parallax floating decor */}
       <motion.div
         style={{ x: layer2X, y: layer2Y }}
         className="pointer-events-none absolute inset-0"
       >
-        <div className="absolute left-[12%] top-[18%] size-40 rounded-3xl border border-border/60 bg-surface/20 backdrop-blur-xl animate-float-slow" />
-        <div className="absolute right-[14%] top-[26%] size-24 rotate-12 rounded-2xl border border-border/60 bg-surface/20 backdrop-blur-xl animate-float-slow" />
-        <div className="absolute bottom-[16%] left-[24%] size-16 rounded-full border border-primary/30 bg-primary/10 blur-[1px] animate-float-slow" />
+        <div className="absolute left-[10%] top-[14%] size-44 rounded-[2rem] border border-border/50 bg-surface/20 backdrop-blur-2xl animate-float-slow" />
+        <div className="absolute right-[12%] top-[22%] size-28 rotate-12 rounded-3xl border border-border/50 bg-surface/20 backdrop-blur-2xl animate-float-slow" />
+        <div className="absolute bottom-[14%] left-[20%] size-20 rounded-full border border-primary/30 bg-primary/10 blur-[1px] animate-float-slow" />
+        <div className="absolute bottom-[22%] right-[18%] size-36 rounded-[1.75rem] border border-border/40 bg-surface/10 backdrop-blur-2xl animate-float-slow" />
       </motion.div>
 
       <motion.div
-        animate={leaving ? { scale: 0.96, opacity: 0, filter: "blur(8px)" } : {}}
+        animate={leaving ? { scale: 0.96, opacity: 0, filter: "blur(10px)" } : {}}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-10 mx-auto flex min-h-screen w-full max-w-6xl flex-col justify-center px-6 py-16"
+        className="relative z-10 mx-auto flex min-h-screen w-full max-w-6xl flex-col items-center justify-center px-6 py-24 text-center"
       >
-        <motion.div variants={stagger(0.09, 0.15)} initial="hidden" animate="show">
+        <motion.div
+          variants={stagger(0.1, 0.15)}
+          initial="hidden"
+          animate="show"
+          className="flex w-full flex-col items-center"
+        >
           <motion.div variants={fadeUp} className="flex items-center gap-3">
             <span className="grid size-10 place-items-center rounded-xl bg-[image:var(--gradient-primary)] text-primary-foreground shadow-[var(--shadow-glow)]">
               <Radar className="size-5" />
@@ -148,20 +155,26 @@ function WelcomePage() {
             </StatusPill>
           </motion.div>
 
-          <motion.p variants={fadeUp} className="mt-10 text-sm uppercase tracking-[0.3em] text-muted-foreground">
+          <motion.p
+            variants={fadeUp}
+            className="mt-14 text-[11px] uppercase tracking-[0.42em] text-muted-foreground"
+          >
             {greeting()}, {meta.person.split(" ")[0]}
           </motion.p>
 
           <motion.h1
             variants={fadeUp}
             style={{ x: layer1X, y: layer1Y }}
-            className="mt-4 max-w-3xl text-6xl font-semibold leading-[0.95] md:text-8xl"
+            className="mt-6 max-w-4xl text-balance text-6xl font-semibold leading-[0.92] tracking-tight md:text-8xl"
           >
             Welcome
             <span className="block text-gradient animate-gradient-pan">back on route.</span>
           </motion.h1>
 
-          <motion.p variants={fadeUp} className="mt-6 max-w-xl text-base text-muted-foreground">
+          <motion.p
+            variants={fadeUp}
+            className="mx-auto mt-8 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground md:text-lg"
+          >
             {safeRole === "manager"
               ? "142 drivers on duty, 56 requests waiting and one AI copilot ready to assign them."
               : safeRole === "driver"
@@ -169,7 +182,10 @@ function WelcomePage() {
                 : "Six shipments moving right now — track them live or book a new delivery."}
           </motion.p>
 
-          <motion.div variants={fadeUp} className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <motion.div
+            variants={fadeUp}
+            className="mx-auto mt-16 grid w-full max-w-5xl justify-center gap-5 sm:grid-cols-2 lg:grid-cols-3"
+          >
             {launchers[safeRole].map((item, i) => (
               <FloatingLauncher key={item.to} item={item} index={i} onSelect={() => go(item.to)} />
             ))}
@@ -191,30 +207,35 @@ function FloatingLauncher({
 }) {
   return (
     <motion.div
-      animate={{ y: [0, -7, 0] }}
-      transition={{ duration: 5 + index * 0.6, repeat: Infinity, ease: "easeInOut" }}
+      animate={{ y: [0, -9, 0] }}
+      transition={{ duration: 5.5 + index * 0.7, repeat: Infinity, ease: "easeInOut" }}
     >
-      <MagneticButton
-        onClick={onSelect}
-        variant="glass"
-        strength={0.18}
-        className="group w-full flex-col items-start gap-3 rounded-2xl p-5 text-left"
-      >
-        <span className="flex w-full items-center justify-between">
-          <motion.span
-            whileHover={{ rotate: 10, scale: 1.12 }}
-            transition={{ type: "spring", stiffness: 300, damping: 12 }}
-            className="grid size-10 place-items-center rounded-xl bg-primary/14 text-primary"
-          >
-            <item.icon className="size-5" />
-          </motion.span>
-          <ArrowUpRight className="size-4 text-muted-foreground transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary" />
-        </span>
-        <span className="block w-full">
-          <span className="block text-base font-semibold">{item.label}</span>
-          <span className="mt-1 block text-xs font-normal text-muted-foreground">{item.desc}</span>
-        </span>
-      </MagneticButton>
+      <TiltCard intensity={9} className="rounded-2xl">
+        <MagneticButton
+          onClick={onSelect}
+          variant="glass"
+          strength={0.18}
+          className="group w-full flex-col items-start gap-4 rounded-2xl border-0 bg-transparent p-6 text-left shadow-none"
+        >
+          <span className="flex w-full items-center justify-between">
+            <motion.span
+              whileHover={{ rotate: 10, scale: 1.12 }}
+              transition={{ type: "spring", stiffness: 300, damping: 12 }}
+              className="grid size-11 place-items-center rounded-xl bg-primary/14 text-primary shadow-[var(--shadow-glow)]"
+            >
+              <item.icon className="size-5" />
+            </motion.span>
+            <ArrowUpRight className="size-4 text-muted-foreground transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary" />
+          </span>
+          <span className="block w-full">
+            <span className="block text-base font-semibold tracking-tight">{item.label}</span>
+            <span className="mt-1.5 block text-xs font-normal leading-relaxed text-muted-foreground">
+              {item.desc}
+            </span>
+          </span>
+        </MagneticButton>
+      </TiltCard>
     </motion.div>
   );
 }
+
