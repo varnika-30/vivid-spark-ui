@@ -50,8 +50,12 @@ export function MagneticButton({
   return (
     <motion.div
       className={float ? "inline-flex" : "contents"}
-      animate={float ? { y: [0, -3, 0] } : undefined}
-      transition={float ? { duration: 5, repeat: Infinity, ease: "easeInOut" } : undefined}
+      {...(float
+        ? {
+            animate: { y: [0, -3, 0] },
+            transition: { duration: 5, repeat: Infinity, ease: "easeInOut" as const },
+          }
+        : {})}
     >
       <motion.button
         ref={ref}
