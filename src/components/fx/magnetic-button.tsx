@@ -49,7 +49,7 @@ export function MagneticButton({
 
   return (
     <motion.div
-      className={float ? "inline-flex" : "contents"}
+      className={float ? "inline-flex w-full justify-center" : "contents"}
       {...(float
         ? {
             animate: { y: [0, -3, 0] },

@@ -127,7 +127,6 @@ function LoginPage() {
             variant="primary"
             className="mt-6 w-full"
             float
-            float
             icon={<ArrowRight className="size-4" />}
             type="submit"
           >
