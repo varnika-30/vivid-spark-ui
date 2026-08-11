@@ -17,6 +17,7 @@ import type { LucideIcon } from "lucide-react";
 import { AuroraBackground } from "@/components/fx/aurora-background";
 import { MagneticButton } from "@/components/fx/magnetic-button";
 import { StatusPill } from "@/components/fx/status-pill";
+import { TiltCard } from "@/components/fx/tilt-card";
 import { roleMeta } from "@/components/layout/navigation";
 import type { Role } from "@/data/fleet";
 import { fadeUp, stagger } from "@/lib/motion-presets";
