@@ -390,3 +390,90 @@ export const statusMeta: Record<DeliveryStatus, { label: string; tone: string }>
   cancelled: { label: "Cancelled", tone: "destructive" },
   paused: { label: "Paused", tone: "warning" },
 };
+
+/* ------------------------------------------------------------------ */
+/* Driver detail data (used by the dedicated Driver Details page)      */
+/* ------------------------------------------------------------------ */
+
+export interface DriverEmployment {
+  employeeId: string;
+  joinedOn: string;
+  contractType: string;
+  shift: string;
+  depot: string;
+  reportingManager: string;
+  licenceNo: string;
+  licenceExpiry: string;
+  emergencyContact: string;
+  address: string;
+}
+
+export const driverEmployment: Record<string, DriverEmployment> = {
+  default: {
+    employeeId: "FL-EMP-0231",
+    joinedOn: "Mar 14, 2022",
+    contractType: "Full-time · Permanent",
+    shift: "Morning · 07:00 – 16:00",
+    depot: "Hinjewadi Depot, Pune",
+    reportingManager: "Amit Rao",
+    licenceNo: "MH12 2019 0044231",
+    licenceExpiry: "Nov 30, 2028",
+    emergencyContact: "Sunita Sharma · +91 98220 41199",
+    address: "B-204, Silver Oak Society, Baner Road, Pune, MH 411045",
+  },
+};
+
+export interface DriverTrip {
+  id: string;
+  date: string;
+  route: string;
+  distance: string;
+  duration: string;
+  rating: number;
+  status: "Completed" | "Delayed" | "Cancelled";
+}
+
+export const driverTrips: DriverTrip[] = [
+  { id: "TRP-88214", date: "May 09, 2026", route: "Mumbai → Pune", distance: "148 km", duration: "3h 10m", rating: 4.9, status: "Completed" },
+  { id: "TRP-88190", date: "May 07, 2026", route: "Pune → Nashik", distance: "210 km", duration: "4h 42m", rating: 4.7, status: "Delayed" },
+  { id: "TRP-88151", date: "May 05, 2026", route: "Thane → Pune", distance: "162 km", duration: "3h 28m", rating: 5.0, status: "Completed" },
+  { id: "TRP-88102", date: "May 02, 2026", route: "Pune → Satara", distance: "118 km", duration: "2h 35m", rating: 4.8, status: "Completed" },
+  { id: "TRP-88044", date: "Apr 29, 2026", route: "Mumbai → Nagpur", distance: "824 km", duration: "14h 05m", rating: 4.4, status: "Completed" },
+];
+
+export const driverMonthlyScore = [
+  { month: "Dec", score: 79 },
+  { month: "Jan", score: 82 },
+  { month: "Feb", score: 84 },
+  { month: "Mar", score: 88 },
+  { month: "Apr", score: 91 },
+  { month: "May", score: 94 },
+];
+
+/* ------------------------------------------------------------------ */
+/* Delivery detail data                                                */
+/* ------------------------------------------------------------------ */
+
+export const deliveryPackage = {
+  category: "Electronics",
+  weight: "3.4 kg",
+  size: "M · 40 × 30 × 25 cm",
+  handling: "Handle with care · Fragile",
+  priority: "High · Normal",
+  instructions: "Call the receptionist on arrival. Gate 2 entry only.",
+};
+
+export const deliveryActivity = [
+  { title: "Delivery created", body: "Requested by Acme Corp.", time: "May 09, 10:12 AM" },
+  { title: "Assigned to driver", body: "Rahul Sharma accepted the trip.", time: "May 09, 01:05 PM" },
+  { title: "Picked up", body: "Techlink Warehouse, Mumbai.", time: "May 10, 08:45 AM" },
+  { title: "In transit", body: "Crossed Lonavala checkpoint.", time: "May 10, 11:20 AM" },
+];
+
+export const requestContacts = {
+  pickupContact: "Nilesh Kadam · +91 98200 11223",
+  dropContact: "Ritu Malhotra · +91 98670 44112",
+  payment: "Prepaid · UPI",
+  reference: "PO-2026-4471",
+  instructions: "Needs soft-cover load handling. Do not stack above 2 boxes.",
+};
