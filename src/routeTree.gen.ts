@@ -27,6 +27,7 @@ import { Route as ManagerDriversRouteImport } from './routes/manager.drivers'
 import { Route as ManagerRequestsRouteImport } from './routes/manager.requests'
 import { Route as ManagerTripsRouteImport } from './routes/manager.trips'
 import { Route as WelcomeRoleRouteImport } from './routes/welcome.$role'
+import { Route as ClientDeliveriesDeliveryIdRouteImport } from './routes/client.deliveries.$deliveryId'
 import { Route as ManagerDriversIndexRouteImport } from './routes/manager.drivers.index'
 import { Route as ManagerDriversDriverIdRouteImport } from './routes/manager.drivers.$driverId'
 
@@ -120,6 +121,12 @@ const WelcomeRoleRoute = WelcomeRoleRouteImport.update({
   path: '/welcome/$role',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ClientDeliveriesDeliveryIdRoute =
+  ClientDeliveriesDeliveryIdRouteImport.update({
+    id: '/$deliveryId',
+    path: '/$deliveryId',
+    getParentRoute: () => ClientDeliveriesRoute,
+  } as any)
 const ManagerDriversIndexRoute = ManagerDriversIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -137,7 +144,7 @@ export interface FileRoutesByFullPath {
   '/driver': typeof DriverRouteWithChildren
   '/manager': typeof ManagerRouteWithChildren
   '/client/create': typeof ClientCreateRoute
-  '/client/deliveries': typeof ClientDeliveriesRoute
+  '/client/deliveries': typeof ClientDeliveriesRouteWithChildren
   '/client/notifications': typeof ClientNotificationsRoute
   '/driver/deliveries': typeof DriverDeliveriesRoute
   '/driver/performance': typeof DriverPerformanceRoute
@@ -150,13 +157,14 @@ export interface FileRoutesByFullPath {
   '/client/': typeof ClientIndexRoute
   '/driver/': typeof DriverIndexRoute
   '/manager/': typeof ManagerIndexRoute
+  '/client/deliveries/$deliveryId': typeof ClientDeliveriesDeliveryIdRoute
   '/manager/drivers/$driverId': typeof ManagerDriversDriverIdRoute
   '/manager/drivers/': typeof ManagerDriversIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/client/create': typeof ClientCreateRoute
-  '/client/deliveries': typeof ClientDeliveriesRoute
+  '/client/deliveries': typeof ClientDeliveriesRouteWithChildren
   '/client/notifications': typeof ClientNotificationsRoute
   '/driver/deliveries': typeof DriverDeliveriesRoute
   '/driver/performance': typeof DriverPerformanceRoute
@@ -168,6 +176,7 @@ export interface FileRoutesByTo {
   '/client': typeof ClientIndexRoute
   '/driver': typeof DriverIndexRoute
   '/manager': typeof ManagerIndexRoute
+  '/client/deliveries/$deliveryId': typeof ClientDeliveriesDeliveryIdRoute
   '/manager/drivers/$driverId': typeof ManagerDriversDriverIdRoute
   '/manager/drivers': typeof ManagerDriversIndexRoute
 }
@@ -178,7 +187,7 @@ export interface FileRoutesById {
   '/driver': typeof DriverRouteWithChildren
   '/manager': typeof ManagerRouteWithChildren
   '/client/create': typeof ClientCreateRoute
-  '/client/deliveries': typeof ClientDeliveriesRoute
+  '/client/deliveries': typeof ClientDeliveriesRouteWithChildren
   '/client/notifications': typeof ClientNotificationsRoute
   '/driver/deliveries': typeof DriverDeliveriesRoute
   '/driver/performance': typeof DriverPerformanceRoute
@@ -191,6 +200,7 @@ export interface FileRoutesById {
   '/client/': typeof ClientIndexRoute
   '/driver/': typeof DriverIndexRoute
   '/manager/': typeof ManagerIndexRoute
+  '/client/deliveries/$deliveryId': typeof ClientDeliveriesDeliveryIdRoute
   '/manager/drivers/$driverId': typeof ManagerDriversDriverIdRoute
   '/manager/drivers/': typeof ManagerDriversIndexRoute
 }
@@ -215,6 +225,7 @@ export interface FileRouteTypes {
     | '/client/'
     | '/driver/'
     | '/manager/'
+    | '/client/deliveries/$deliveryId'
     | '/manager/drivers/$driverId'
     | '/manager/drivers/'
   fileRoutesByTo: FileRoutesByTo
@@ -233,6 +244,7 @@ export interface FileRouteTypes {
     | '/client'
     | '/driver'
     | '/manager'
+    | '/client/deliveries/$deliveryId'
     | '/manager/drivers/$driverId'
     | '/manager/drivers'
   id:
@@ -255,6 +267,7 @@ export interface FileRouteTypes {
     | '/client/'
     | '/driver/'
     | '/manager/'
+    | '/client/deliveries/$deliveryId'
     | '/manager/drivers/$driverId'
     | '/manager/drivers/'
   fileRoutesById: FileRoutesById
@@ -395,6 +408,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WelcomeRoleRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/client/deliveries/$deliveryId': {
+      id: '/client/deliveries/$deliveryId'
+      path: '/$deliveryId'
+      fullPath: '/client/deliveries/$deliveryId'
+      preLoaderRoute: typeof ClientDeliveriesDeliveryIdRouteImport
+      parentRoute: typeof ClientDeliveriesRoute
+    }
     '/manager/drivers/': {
       id: '/manager/drivers/'
       path: '/'
@@ -412,16 +432,27 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface ClientDeliveriesRouteChildren {
+  ClientDeliveriesDeliveryIdRoute: typeof ClientDeliveriesDeliveryIdRoute
+}
+
+const ClientDeliveriesRouteChildren: ClientDeliveriesRouteChildren = {
+  ClientDeliveriesDeliveryIdRoute: ClientDeliveriesDeliveryIdRoute,
+}
+
+const ClientDeliveriesRouteWithChildren =
+  ClientDeliveriesRoute._addFileChildren(ClientDeliveriesRouteChildren)
+
 interface ClientRouteChildren {
   ClientCreateRoute: typeof ClientCreateRoute
-  ClientDeliveriesRoute: typeof ClientDeliveriesRoute
+  ClientDeliveriesRoute: typeof ClientDeliveriesRouteWithChildren
   ClientNotificationsRoute: typeof ClientNotificationsRoute
   ClientIndexRoute: typeof ClientIndexRoute
 }
 
 const ClientRouteChildren: ClientRouteChildren = {
   ClientCreateRoute: ClientCreateRoute,
-  ClientDeliveriesRoute: ClientDeliveriesRoute,
+  ClientDeliveriesRoute: ClientDeliveriesRouteWithChildren,
   ClientNotificationsRoute: ClientNotificationsRoute,
   ClientIndexRoute: ClientIndexRoute,
 }
