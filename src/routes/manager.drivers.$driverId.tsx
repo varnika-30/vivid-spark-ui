@@ -84,8 +84,8 @@ const tripTone: Record<string, Tone> = {
 
 function DriverDetail() {
   const { driver } = Route.useLoaderData();
-  const employment = driverEmployment.default;
-  const assignment = deliveries.find((d) => d.driver === driver.name) ?? deliveries[0];
+  const employment = driverEmployment['default']!;
+  const assignment = deliveries.find((d) => d.driver === driver.name) ?? deliveries[0]!;
 
   return (
     <Page
@@ -266,7 +266,7 @@ function DriverDetail() {
               >
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-sm font-medium text-primary">{t.id}</span>
-                  <StatusPill tone={tripTone[t.status]}>{t.status}</StatusPill>
+                  <StatusPill tone={tripTone[t.status] ?? "muted"}>{t.status}</StatusPill>
                 </div>
                 <p className="mt-2 flex items-center gap-2 text-sm">
                   <RouteIcon className="size-4 text-muted-foreground" /> {t.route}
