@@ -168,6 +168,75 @@ function CreateDelivery() {
           </motion.div>
         </GlassPanel>
       </div>
+
+      <GlassPanel className="mt-4" title="Date" hoverable={false}>
+        <div className="space-y-4">
+          <div className="space-y-1.5">
+            <Label className="text-xs text-muted-foreground">
+              {mode === "flexible" ? "Preferred date (optional)" : activeMode.label}
+            </Label>
+            <Popover>
+              <PopoverTrigger asChild>
+                <button
+                  type="button"
+                  className={cn(
+                    "flex w-full items-center gap-2 rounded-md border border-input bg-surface/40 px-3 py-2 text-left text-sm transition-colors hover:border-primary/40",
+                    !date && "text-muted-foreground",
+                  )}
+                >
+                  <CalendarIcon className="size-4 shrink-0 text-primary" />
+                  {date ? format(date, "PPP") : <span>Pick a date</span>}
+                </button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  mode="single"
+                  selected={date}
+                  onSelect={setDate}
+                  initialFocus
+                  className={cn("p-3 pointer-events-auto")}
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
+
+          <ToggleGroup
+            type="single"
+            value={mode}
+            onValueChange={(v) => v && setMode(v as DateMode)}
+            className="grid w-full grid-cols-1 gap-2 sm:grid-cols-3"
+          >
+            {dateModes.map((m) => (
+              <ToggleGroupItem
+                key={m.value}
+                value={m.value}
+                className={cn(
+                  "h-auto w-full flex-col items-start gap-0.5 rounded-xl border border-border bg-surface/40 px-4 py-3 text-left",
+                  "data-[state=on]:border-primary/50 data-[state=on]:bg-primary/12 data-[state=on]:text-primary",
+                )}
+              >
+                <span className="text-sm font-medium">{m.label}</span>
+                <span className="text-[11px] font-normal text-muted-foreground">{m.hint}</span>
+              </ToggleGroupItem>
+            ))}
+          </ToggleGroup>
+
+          <div className="space-y-1.5">
+            <Label className="text-xs text-muted-foreground">Any special instructions</Label>
+            <Textarea
+              rows={4}
+              placeholder="Fragile items, gate codes, contact preferences…"
+              className="w-full bg-surface/40"
+            />
+          </div>
+
+          <div className="flex justify-end">
+            <MagneticButton variant="primary" icon={<Send className="size-4" />} onClick={submit}>
+              Submit request
+            </MagneticButton>
+          </div>
+        </div>
+      </GlassPanel>
     </Page>
   );
 }
