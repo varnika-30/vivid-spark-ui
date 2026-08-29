@@ -1,6 +1,12 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { PackagePlus, Send } from "lucide-react";
+import { format } from "date-fns";
+import { CalendarIcon, PackagePlus, Send } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { cn } from "@/lib/utils";
 import { Page } from "@/components/fx/page";
 import { GlassPanel } from "@/components/fx/glass-panel";
 import { MagneticButton } from "@/components/fx/magnetic-button";
@@ -51,20 +57,34 @@ function AddressBlock({ title }: { title: string }) {
   );
 }
 
+type DateMode = "on" | "before" | "flexible";
+
+const dateModes: { value: DateMode; label: string; hint: string }[] = [
+  { value: "on", label: "Deliver on", hint: "Select an exact date" },
+  { value: "before", label: "Deliver before", hint: "Select a deadline date" },
+  { value: "flexible", label: "Flexible", hint: "Date is optional" },
+];
+
 function CreateDelivery() {
+  const [mode, setMode] = useState<DateMode>("on");
+  const [date, setDate] = useState<Date | undefined>();
+
+  const activeMode = dateModes.find((m) => m.value === mode)!;
+
+  const submit = () => {
+    if (mode !== "flexible" && !date) {
+      toast.error("Please pick a date", { description: activeMode.hint });
+      return;
+    }
+    toast.success("Delivery request submitted", {
+      description: "We'll assign a driver shortly.",
+    });
+  };
+
   return (
     <Page
       title="Create New Delivery"
       description="Tell us what's moving and where — we'll match the right driver automatically."
-      actions={
-        <MagneticButton
-          variant="primary"
-          icon={<Send className="size-4" />}
-          onClick={() => toast.success("Delivery request submitted", { description: "We'll assign a driver shortly." })}
-        >
-          Submit request
-        </MagneticButton>
-      }
     >
       <div className="grid gap-4 lg:grid-cols-2">
         <AddressBlock title="Pickup at" />
@@ -122,14 +142,6 @@ function CreateDelivery() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="space-y-1.5">
-              <Label className="text-xs text-muted-foreground">Preferred date</Label>
-              <Input type="date" className="bg-surface/40" />
-            </div>
-          </div>
-          <div className="mt-3 space-y-1.5">
-            <Label className="text-xs text-muted-foreground">Any special instructions</Label>
-            <Textarea rows={3} placeholder="Fragile items, gate codes, contact preferences…" className="bg-surface/40" />
           </div>
         </GlassPanel>
 
@@ -156,6 +168,75 @@ function CreateDelivery() {
           </motion.div>
         </GlassPanel>
       </div>
+
+      <GlassPanel className="mt-4" title="Date" hoverable={false}>
+        <div className="space-y-4">
+          <div className="space-y-1.5">
+            <Label className="text-xs text-muted-foreground">
+              {mode === "flexible" ? "Preferred date (optional)" : activeMode.label}
+            </Label>
+            <Popover>
+              <PopoverTrigger asChild>
+                <button
+                  type="button"
+                  className={cn(
+                    "flex w-full items-center gap-2 rounded-md border border-input bg-surface/40 px-3 py-2 text-left text-sm transition-colors hover:border-primary/40",
+                    !date && "text-muted-foreground",
+                  )}
+                >
+                  <CalendarIcon className="size-4 shrink-0 text-primary" />
+                  {date ? format(date, "PPP") : <span>Pick a date</span>}
+                </button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  mode="single"
+                  selected={date}
+                  onSelect={setDate}
+                  initialFocus
+                  className={cn("p-3 pointer-events-auto")}
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
+
+          <ToggleGroup
+            type="single"
+            value={mode}
+            onValueChange={(v) => v && setMode(v as DateMode)}
+            className="grid w-full grid-cols-1 gap-2 sm:grid-cols-3"
+          >
+            {dateModes.map((m) => (
+              <ToggleGroupItem
+                key={m.value}
+                value={m.value}
+                className={cn(
+                  "h-auto w-full flex-col items-start gap-0.5 rounded-xl border border-border bg-surface/40 px-4 py-3 text-left",
+                  "data-[state=on]:border-primary/50 data-[state=on]:bg-primary/12 data-[state=on]:text-primary",
+                )}
+              >
+                <span className="text-sm font-medium">{m.label}</span>
+                <span className="text-[11px] font-normal text-muted-foreground">{m.hint}</span>
+              </ToggleGroupItem>
+            ))}
+          </ToggleGroup>
+
+          <div className="space-y-1.5">
+            <Label className="text-xs text-muted-foreground">Any special instructions</Label>
+            <Textarea
+              rows={4}
+              placeholder="Fragile items, gate codes, contact preferences…"
+              className="w-full bg-surface/40"
+            />
+          </div>
+
+          <div className="flex justify-end">
+            <MagneticButton variant="primary" icon={<Send className="size-4" />} onClick={submit}>
+              Submit request
+            </MagneticButton>
+          </div>
+        </div>
+      </GlassPanel>
     </Page>
   );
 }

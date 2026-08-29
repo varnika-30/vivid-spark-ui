@@ -185,10 +185,20 @@ function WelcomePage() {
 
           <motion.div
             variants={fadeUp}
-            className="mx-auto mt-16 grid w-full max-w-5xl justify-center gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            className={
+              safeRole === "client"
+                ? "mx-auto mt-16 grid w-full max-w-5xl gap-5 sm:grid-cols-2"
+                : "mx-auto mt-16 grid w-full max-w-5xl justify-center gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            }
           >
             {launchers[safeRole].map((item, i) => (
-              <FloatingLauncher key={item.to} item={item} index={i} onSelect={() => go(item.to)} />
+              <FloatingLauncher
+                key={item.to}
+                item={item}
+                index={i}
+                compact={safeRole === "client"}
+                onSelect={() => go(item.to)}
+              />
             ))}
           </motion.div>
         </motion.div>
@@ -201,11 +211,49 @@ function FloatingLauncher({
   item,
   index,
   onSelect,
+  compact = false,
 }: {
   item: Launch;
   index: number;
   onSelect: () => void;
+  compact?: boolean;
 }) {
+  if (compact) {
+    return (
+      <motion.div
+        animate={{ y: [0, -3, 0] }}
+        transition={{ duration: 5 + index * 0.5, repeat: Infinity, ease: "easeInOut" }}
+        className="w-full"
+      >
+        <TiltCard intensity={3} className="rounded-2xl">
+          <MagneticButton
+            onClick={onSelect}
+            variant="glass"
+            tilt={0}
+            className="group w-full items-center gap-4 rounded-2xl border-0 bg-transparent px-5 py-4 text-left shadow-none"
+          >
+            <motion.span
+              whileHover={{ rotate: 10, scale: 1.1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 12 }}
+              className="grid size-10 shrink-0 place-items-center rounded-xl bg-primary/14 text-primary shadow-[var(--shadow-glow)]"
+            >
+              <item.icon className="size-5" />
+            </motion.span>
+            <span className="block min-w-0 flex-1">
+              <span className="block truncate text-sm font-semibold tracking-tight">
+                {item.label}
+              </span>
+              <span className="mt-0.5 block truncate text-xs font-normal text-muted-foreground">
+                {item.desc}
+              </span>
+            </span>
+            <ArrowUpRight className="size-4 shrink-0 text-muted-foreground transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary" />
+          </MagneticButton>
+        </TiltCard>
+      </motion.div>
+    );
+  }
+
   return (
     <motion.div
       animate={{ y: [0, -3, 0] }}
