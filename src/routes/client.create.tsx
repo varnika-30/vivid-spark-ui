@@ -57,20 +57,34 @@ function AddressBlock({ title }: { title: string }) {
   );
 }
 
+type DateMode = "on" | "before" | "flexible";
+
+const dateModes: { value: DateMode; label: string; hint: string }[] = [
+  { value: "on", label: "Deliver on", hint: "Select an exact date" },
+  { value: "before", label: "Deliver before", hint: "Select a deadline date" },
+  { value: "flexible", label: "Flexible", hint: "Date is optional" },
+];
+
 function CreateDelivery() {
+  const [mode, setMode] = useState<DateMode>("on");
+  const [date, setDate] = useState<Date | undefined>();
+
+  const activeMode = dateModes.find((m) => m.value === mode)!;
+
+  const submit = () => {
+    if (mode !== "flexible" && !date) {
+      toast.error("Please pick a date", { description: activeMode.hint });
+      return;
+    }
+    toast.success("Delivery request submitted", {
+      description: "We'll assign a driver shortly.",
+    });
+  };
+
   return (
     <Page
       title="Create New Delivery"
       description="Tell us what's moving and where — we'll match the right driver automatically."
-      actions={
-        <MagneticButton
-          variant="primary"
-          icon={<Send className="size-4" />}
-          onClick={() => toast.success("Delivery request submitted", { description: "We'll assign a driver shortly." })}
-        >
-          Submit request
-        </MagneticButton>
-      }
     >
       <div className="grid gap-4 lg:grid-cols-2">
         <AddressBlock title="Pickup at" />
