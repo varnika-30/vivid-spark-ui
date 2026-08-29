@@ -142,14 +142,6 @@ function CreateDelivery() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="space-y-1.5">
-              <Label className="text-xs text-muted-foreground">Preferred date</Label>
-              <Input type="date" className="bg-surface/40" />
-            </div>
-          </div>
-          <div className="mt-3 space-y-1.5">
-            <Label className="text-xs text-muted-foreground">Any special instructions</Label>
-            <Textarea rows={3} placeholder="Fragile items, gate codes, contact preferences…" className="bg-surface/40" />
           </div>
         </GlassPanel>
 
