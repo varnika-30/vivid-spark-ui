@@ -185,10 +185,20 @@ function WelcomePage() {
 
           <motion.div
             variants={fadeUp}
-            className="mx-auto mt-16 grid w-full max-w-5xl justify-center gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            className={
+              safeRole === "client"
+                ? "mx-auto mt-16 grid w-full max-w-5xl gap-5 sm:grid-cols-2"
+                : "mx-auto mt-16 grid w-full max-w-5xl justify-center gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            }
           >
             {launchers[safeRole].map((item, i) => (
-              <FloatingLauncher key={item.to} item={item} index={i} onSelect={() => go(item.to)} />
+              <FloatingLauncher
+                key={item.to}
+                item={item}
+                index={i}
+                compact={safeRole === "client"}
+                onSelect={() => go(item.to)}
+              />
             ))}
           </motion.div>
         </motion.div>
