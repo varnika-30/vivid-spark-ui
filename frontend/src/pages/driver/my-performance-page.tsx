@@ -182,7 +182,7 @@ const CustomTooltip = ({ active, payload }: any) => {
     const status = data.status;
 
     return (
-      <div className="rounded-xl border border-border/80 bg-surface-1/95 p-3.5 shadow-2xl backdrop-blur-md text-xs space-y-1.5 min-w-[150px]">
+      <div className="rounded-xl border border-border/80 glass-strong bg-surface/95 p-3.5 shadow-2xl text-xs space-y-1.5 min-w-[150px]">
         <div className="flex items-center justify-between border-b border-border/50 pb-1 font-bold text-foreground">
           <span>{periodLabel}</span>
           <span className="text-primary font-mono text-sm font-extrabold">{score}</span>

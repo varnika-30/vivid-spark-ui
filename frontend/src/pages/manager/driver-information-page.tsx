@@ -805,8 +805,12 @@ export function ManagerDriverDetailPage({ driver }: { driver: Driver }) {
               initial={{ opacity: 0, scale: 0.95, y: 12 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 12 }}
-              className="relative w-full max-w-lg rounded-3xl border border-border bg-popover p-4 sm:p-6 shadow-2xl z-10 max-h-[90vh] flex flex-col"
+              className="relative w-full max-w-lg rounded-3xl border border-border/80 glass-strong p-4 sm:p-6 shadow-2xl z-10 max-h-[90vh] flex flex-col overflow-hidden"
             >
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+              />
               <div className="flex items-center justify-between border-b border-border pb-4 shrink-0">
                 <div>
                   <h3 className="text-base sm:text-lg font-bold text-foreground">Assign New Delivery</h3>
@@ -876,8 +880,12 @@ export function ManagerDriverDetailPage({ driver }: { driver: Driver }) {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 12 }}
               transition={{ type: "spring", stiffness: 320, damping: 28 }}
-              className="relative w-full max-w-xl rounded-3xl border border-border bg-popover p-5 sm:p-6 shadow-2xl z-10 space-y-4"
+              className="relative w-full max-w-xl rounded-3xl border border-border/80 glass-strong p-5 sm:p-6 shadow-2xl z-10 space-y-4 overflow-hidden"
             >
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+              />
               <div className="flex items-center justify-between border-b border-border pb-3">
                 <div className="flex items-center gap-3">
                   <span className="grid size-10 place-items-center rounded-xl bg-primary/15 text-primary border border-primary/30">
@@ -1039,8 +1047,12 @@ export function ManagerDriverDetailPage({ driver }: { driver: Driver }) {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 12 }}
               transition={{ type: "spring", stiffness: 320, damping: 28 }}
-              className="relative w-full max-w-md rounded-3xl border border-destructive/40 bg-popover p-5 sm:p-6 shadow-2xl z-10 space-y-4"
+              className="relative w-full max-w-md rounded-3xl border border-destructive/40 glass-strong p-5 sm:p-6 shadow-2xl z-10 space-y-4 overflow-hidden"
             >
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-destructive/50 to-transparent"
+              />
               <div className="flex items-center justify-between border-b border-border pb-3">
                 <div className="flex items-center gap-3">
                   <span className="grid size-10 place-items-center rounded-xl bg-destructive/15 text-destructive border border-destructive/30">

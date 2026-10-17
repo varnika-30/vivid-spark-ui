@@ -396,7 +396,7 @@ export function SchedulePage() {
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 5 }}
-              className="absolute left-4 top-12 z-20 max-w-sm rounded-xl border border-border bg-surface-1 p-3.5 text-xs shadow-xl text-foreground"
+              className="absolute left-4 top-12 z-20 max-w-sm rounded-xl border border-border/80 glass-strong p-3.5 text-xs shadow-2xl text-foreground"
             >
               <div className="flex items-center justify-between font-bold mb-1">
                 <span>AI Dispatch & Scheduling</span>
@@ -438,7 +438,7 @@ export function SchedulePage() {
             </div>
 
             {/* CLEAN 3-COLUMN SERPENTINE SEQUENCE PANEL */}
-            <div className="rounded-2xl border border-primary/20 bg-surface-1/80 p-5 sm:p-6 space-y-5">
+            <div className="rounded-2xl border border-primary/20 bg-surface/80 glass p-5 sm:p-6 space-y-5">
               {/* DESKTOP 3-COLUMN SEQUENCE LAYOUT */}
               <div className="hidden md:block space-y-5">
                 {/* TOP ROW: Step 1 -> Step 2 -> Step 3 */}
@@ -895,8 +895,12 @@ export function SchedulePage() {
               initial={{ scale: 0.95, y: 15 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 15 }}
-              className="w-full max-w-md rounded-2xl border border-border bg-surface-1 p-6 shadow-2xl space-y-4"
+              className="relative w-full max-w-md rounded-3xl border border-border/80 glass-strong p-6 shadow-2xl space-y-4 overflow-hidden"
             >
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+              />
               {/* Header */}
               <div className="flex items-center justify-between border-b border-border/60 pb-3">
                 <div className="flex items-center gap-2">

@@ -442,8 +442,12 @@ export function ManagerDriversPage() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 12 }}
               transition={{ type: "spring", stiffness: 320, damping: 28 }}
-              className="relative w-full max-w-2xl rounded-3xl border border-border bg-popover p-5 sm:p-6 shadow-2xl z-10 max-h-[90vh] flex flex-col"
+              className="relative w-full max-w-2xl rounded-3xl border border-border/80 glass-strong p-5 sm:p-6 shadow-2xl z-10 max-h-[90vh] flex flex-col overflow-hidden"
             >
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+              />
               <div className="flex items-center justify-between border-b border-border pb-3 shrink-0">
                 <div className="flex items-center gap-2.5">
                   <span className="grid size-9 place-items-center rounded-xl bg-primary/15 text-primary border border-primary/30 shadow-[var(--shadow-glow)]">

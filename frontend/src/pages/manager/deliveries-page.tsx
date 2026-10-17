@@ -843,8 +843,12 @@ export function ManagerDeliveriesPage() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 12 }}
               transition={{ type: "spring", stiffness: 320, damping: 28 }}
-              className="relative w-full max-w-4xl max-h-[92vh] rounded-3xl border border-border bg-popover p-5 sm:p-6 shadow-2xl z-10 overflow-y-auto flex flex-col justify-between"
+              className="relative w-full max-w-4xl max-h-[92vh] rounded-3xl border border-border/80 glass-strong p-5 sm:p-6 shadow-2xl z-10 overflow-y-auto flex flex-col justify-between overflow-hidden"
             >
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+              />
               <div className="space-y-5">
                 {/* Modal Header */}
                 <div className="flex items-start justify-between border-b border-border pb-4 gap-3">
@@ -1075,7 +1079,7 @@ export function ManagerDeliveriesPage() {
                               <CalendarIconIcon className="size-4 text-muted-foreground" />
                             </button>
                           </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0 z-50 bg-popover" align="start">
+                          <PopoverContent className="w-auto p-0 z-50" align="start">
                             <CalendarPicker
                               mode="single"
                               selected={createDate}
@@ -1156,8 +1160,12 @@ export function ManagerDeliveriesPage() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 12 }}
               transition={{ type: "spring", stiffness: 320, damping: 28 }}
-              className="relative w-full max-w-4xl max-h-[92vh] rounded-3xl border border-border bg-popover p-5 sm:p-6 shadow-2xl z-10 overflow-y-auto flex flex-col justify-between"
+              className="relative w-full max-w-4xl max-h-[92vh] rounded-3xl border border-border/80 glass-strong p-5 sm:p-6 shadow-2xl z-10 overflow-y-auto flex flex-col justify-between overflow-hidden"
             >
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+              />
               <div className="space-y-5">
                 {/* 1. TOP SECTION: REQUEST ID, PRIORITY, STATUS, REQUEST DATE */}
                 <div className="flex items-start justify-between border-b border-border pb-4 gap-3">

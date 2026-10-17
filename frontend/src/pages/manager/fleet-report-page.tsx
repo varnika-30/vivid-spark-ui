@@ -525,7 +525,7 @@ export function FleetReportPage() {
                     <span className={cn(
                       "grid size-7 place-items-center rounded-lg text-xs font-extrabold",
                       drv.rank === 1 ? "bg-amber-400/20 text-amber-300 border border-amber-400/30" :
-                      drv.rank === 2 ? "bg-slate-300/20 text-slate-200 border border-slate-300/30" :
+                      drv.rank === 2 ? "bg-muted text-foreground border border-border" :
                       drv.rank === 3 ? "bg-amber-700/20 text-amber-400 border border-amber-700/30" :
                       "bg-surface-2 text-muted-foreground"
                     )}>

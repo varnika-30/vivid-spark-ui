@@ -96,8 +96,12 @@ export function DocumentRequirementsModal({ isOpen, onClose }: DocumentRequireme
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 12 }}
           transition={{ type: "spring", stiffness: 320, damping: 28 }}
-          className="relative w-full max-w-2xl max-h-[85vh] flex flex-col rounded-3xl border border-border bg-popover p-5 sm:p-6 shadow-2xl z-10 space-y-4 overflow-hidden"
+          className="relative w-full max-w-2xl max-h-[85vh] flex flex-col rounded-3xl border border-border/80 glass-strong p-5 sm:p-6 shadow-2xl z-10 space-y-4 overflow-hidden"
         >
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+          />
           {/* Header */}
           <div className="flex items-center justify-between border-b border-border pb-3 shrink-0">
             <div className="flex items-center gap-3">

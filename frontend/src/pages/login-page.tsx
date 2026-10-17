@@ -87,7 +87,7 @@ export function LoginPage() {
             <Radar className="size-7" />
           </motion.div>
           <h1 className="mt-4 text-2xl sm:text-3xl font-extrabold tracking-tight">
-            Welcome to <span className="text-gradient">Fleetline</span>
+            Welcome to <span className="text-gradient">FleetHub</span>
           </h1>
           <p className="mt-1.5 text-xs sm:text-sm text-muted-foreground font-medium">
             The operating system for modern delivery fleets.

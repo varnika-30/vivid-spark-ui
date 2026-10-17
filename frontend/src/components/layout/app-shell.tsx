@@ -303,7 +303,7 @@ export function AppShell({ role, children }: { role: Role; children: ReactNode }
                 exit={{ opacity: 0, x: -8 }}
                 className="min-w-0"
               >
-                <p className="truncate font-display text-sm font-semibold">Fleetline</p>
+                <p className="truncate font-display text-sm font-semibold">FleetHub</p>
                 <p className="truncate text-[11px] text-muted-foreground">{meta.title} workspace</p>
               </motion.div>
             )}

@@ -35,6 +35,7 @@ export const navigation: Record<Role, NavItem[]> = {
   ],
   driver: [
     { label: "My Schedule", to: "/driver/schedule", icon: CalendarDays },
+    { label: "My Deliveries", to: "/driver/deliveries", icon: Truck },
     { label: "Document Status", to: "/driver/documents", icon: FileText },
     { label: "My Performance", to: "/driver/performance", icon: Gauge },
     { label: "Notifications", to: "/driver/notifications", icon: Bell },
