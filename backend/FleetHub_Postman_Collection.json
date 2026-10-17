@@ -1,0 +1,283 @@
+{
+  "info": {
+    "name": "FleetHub API Collection",
+    "description": "Production API Collection for FleetHub - AI Fleet Operations Platform",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Check Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/health",
+              "host": ["{{base_url}}"],
+              "path": ["health"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login (Fleet Manager)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"amit.rao@fleethub.io\",\n  \"password\": \"ManagerPass123!\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login (Driver)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"rahul.sharma@fleethub.io\",\n  \"password\": \"DriverPass123!\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login (Client)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"contact@acmecorp.com\",\n  \"password\": \"ClientPass123!\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Get Current User Profile (/me)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{access_token}}" }],
+            "url": {
+              "raw": "{{base_url}}/auth/me",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "me"]
+            }
+          }
+        },
+        {
+          "name": "Refresh Access Token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/auth/refresh",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "refresh"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/auth/logout",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "logout"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Client Portal",
+      "item": [
+        {
+          "name": "Get Client Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{access_token}}" }],
+            "url": {
+              "raw": "{{base_url}}/client/dashboard",
+              "host": ["{{base_url}}"],
+              "path": ["client", "dashboard"]
+            }
+          }
+        },
+        {
+          "name": "List Client Delivery Requests",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{access_token}}" }],
+            "url": {
+              "raw": "{{base_url}}/delivery-requests",
+              "host": ["{{base_url}}"],
+              "path": ["delivery-requests"]
+            }
+          }
+        },
+        {
+          "name": "Create Delivery Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pickupAddress\": \"Plot 42, Industrial Zone, Pune, MH\",\n  \"dropAddress\": \"Building A, Tech Park, Mumbai, MH\",\n  \"packageCategory\": \"Electronics\",\n  \"weightKg\": 15.5,\n  \"priority\": \"urgent\",\n  \"specialInstructions\": \"Handle delicate electronics\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/delivery-requests",
+              "host": ["{{base_url}}"],
+              "path": ["delivery-requests"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Fleet Manager Portal",
+      "item": [
+        {
+          "name": "Get Manager Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{access_token}}" }],
+            "url": {
+              "raw": "{{base_url}}/manager/dashboard",
+              "host": ["{{base_url}}"],
+              "path": ["manager", "dashboard"]
+            }
+          }
+        },
+        {
+          "name": "Dispatch Delivery",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestId\": \"REQUEST_UUID_HERE\",\n  \"driverId\": \"DRIVER_UUID_HERE\",\n  \"vehicleId\": \"VEHICLE_UUID_HERE\",\n  \"amount\": 3500\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/manager/dispatch",
+              "host": ["{{base_url}}"],
+              "path": ["manager", "dispatch"]
+            }
+          }
+        },
+        {
+          "name": "List All Vehicles",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{access_token}}" }],
+            "url": {
+              "raw": "{{base_url}}/vehicles",
+              "host": ["{{base_url}}"],
+              "path": ["vehicles"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Driver Portal",
+      "item": [
+        {
+          "name": "Get Driver Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{access_token}}" }],
+            "url": {
+              "raw": "{{base_url}}/driver/dashboard",
+              "host": ["{{base_url}}"],
+              "path": ["driver", "dashboard"]
+            }
+          }
+        },
+        {
+          "name": "Update Delivery Tracking",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"stageName\": \"in_transit\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/driver/deliveries/DELIVERY_UUID_HERE/tracking",
+              "host": ["{{base_url}}"],
+              "path": ["driver", "deliveries", "DELIVERY_UUID_HERE", "tracking"]
+            }
+          }
+        },
+        {
+          "name": "Submit Driver Concern",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"category\": \"incorrect_system_detection\",\n  \"contextReason\": \"heavy_rain\",\n  \"driverDescription\": \"Slowing down due to poor visibility\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/driver/concerns",
+              "host": ["{{base_url}}"],
+              "path": ["driver", "concerns"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "List User Notifications",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{access_token}}" }],
+            "url": {
+              "raw": "{{base_url}}/notifications",
+              "host": ["{{base_url}}"],
+              "path": ["notifications"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
